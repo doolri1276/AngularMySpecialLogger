@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MySpecialLoggerService } from '../my-special-logger.service';
+import { LogLevel } from '../log-level.enum';
 
 @Component({
   selector: 'mpl-mouse-track-zone',
@@ -7,8 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 //ng g component mouse-track-zone
 export class MouseTrackZoneComponent implements OnInit {
+  logLevel: LogLevel = LogLevel.INFO; //애플리케이션에서 사용할 로그 레벨
+  logger: MySpecialLoggerService;     //로그 출력으로 사용할 로거인 MySpecialLoggerService
 
-  constructor() { }
+  constructor() {
+    this.logger = new MySpecialLoggerService(this.logLevel);
+  }
 
   ngOnInit() {
   }
