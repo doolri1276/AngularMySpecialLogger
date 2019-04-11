@@ -7,6 +7,7 @@ import { MouseTrackZoneComponent } from './mouse-track-zone/mouse-track-zone.com
 import { MySpecialLoggerService } from './my-special-logger.service';
 import { LogLevel } from './log-level.enum';
 import { LOG_LEVEL_TOKEN } from './tokens';
+import { AnotherLoggerService } from './another-logger.service';
 
 @NgModule({
   declarations: [
@@ -15,11 +16,12 @@ import { LOG_LEVEL_TOKEN } from './tokens';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule    
   ],
   //의존성 주입
   providers: [
     MySpecialLoggerService,
+    AnotherLoggerService,
     {
       // provide: 'logLevel',
       provide:  LOG_LEVEL_TOKEN,
