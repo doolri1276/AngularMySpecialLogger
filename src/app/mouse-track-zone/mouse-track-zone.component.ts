@@ -9,11 +9,11 @@ import { LogLevel } from '../log-level.enum';
 })
 //ng g component mouse-track-zone
 export class MouseTrackZoneComponent implements OnInit {
-  @Input() private logger: MySpecialLoggerService; //싱글턴 사용으로 변경됨
+  // @Input() private logger: MySpecialLoggerService; //싱글턴 사용으로 변경됨
   // logLevel: LogLevel = LogLevel.INFO; //애플리케이션에서 사용할 로그 레벨
   // logger: MySpecialLoggerService;     //로그 출력으로 사용할 로거인 MySpecialLoggerService
 
-  constructor() {
+  constructor(private logger: MySpecialLoggerService) {
     // this.logger = new MySpecialLoggerService(this.logLevel);
   }
 

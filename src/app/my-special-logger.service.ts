@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { LogLevel } from './log-level.enum';
 
 //임포트 생략
 import * as format from 'date-fns/format';
+import { LOG_LEVEL_TOKEN } from './tokens';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class MySpecialLoggerService {
   //로그 시간을 포멧터에 따라 출력하기 위해 date-fns 패키지 설치
   //npm i --save date-fns
 
-  constructor(logLevel: LogLevel) {
+  constructor(@Inject(LOG_LEVEL_TOKEN)logLevel: LogLevel) {
     this.logLevel = logLevel;
   }
 
