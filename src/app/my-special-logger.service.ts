@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { LogLevel } from './log-level.enum';
 
+//임포트 생략
+import * as format from 'date-fns/format';
+
 @Injectable({
   providedIn: 'root'
 })
+//ng g service my-special-logger
 export class MySpecialLoggerService {
 
   //타입스크립트는 접근제한자 public이 기본이다.
@@ -19,6 +23,37 @@ export class MySpecialLoggerService {
 
   constructor(logLevel: LogLevel) {
     this.logLevel = logLevel;
+  }
+
+  debug(msg: string){this.log(LogLevel.DEBUG, msg);}
+  info(msg:string){this.log(LogLevel.INFO, msg);}
+  warn(msg: string){this.log(LogLevel.WARN, msg);}
+  error(msg:string){this.log(LogLevel.ERROR, msg);}
+
+  log(logLevel: LogLevel, msg: string){
+    const logMsg = this.getFormattedLogMsg(logLevel, msg);
+    if(this.isProperLogLevel(logLevel)){
+      console.log(logMsg);
+      this.keepLogHistory(logMsg);
+    }
+  }
+
+  private keepLogHistory(log:string){
+    if(this.logs.length === this.MAX_HISTORY_CNT){
+      this.logs.shift();
+    }
+    this.logs.push(log);
+  }
+
+  private getFormattedLogMsg(logLevel: LogLevel, msg: string){
+    //format()을 사용하기 위해 date-fns를 import했음
+    const curTimestamp = format(new Date(), this.TIME_FORMATTER);
+    return `[${LogLevel[logLevel]}] ${curTimestamp} - ${msg}`;
+  }
+
+  private isProperLogLevel(logLevel: LogLevel): boolean {
+    if(this.logLevel === LogLevel.DEBUG) return true;
+    return logLevel >= this.logLevel;
   }
 
 }
