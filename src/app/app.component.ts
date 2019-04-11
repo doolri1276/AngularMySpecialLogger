@@ -46,4 +46,8 @@ export class AppComponent {
     this.logger.warn("test logging... in warn");
     this.logger.error("test logging... in error");
   }
+
+  printDebugLog(){
+    this.logger.debug("test dependency injector tree!");
+  }
 }
